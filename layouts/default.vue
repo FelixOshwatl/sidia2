@@ -1,13 +1,6 @@
 <template>
   <v-app light>
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      app
-      dark
-      color="#3e4859"
-    >
+    <v-navigation-drawer v-model="drawer" :mini-variant="miniVariant" :clipped="clipped" app dark color="#3e4859">
       <v-list nav dense>
         <v-list-item class="pb-3">
           <v-list-item-title>
@@ -19,6 +12,7 @@
           </v-list-item-title>
         </v-list-item>
         <v-divider class="mb-1" />
+
         <!-- <v-list-item
           v-for="(item, i) in items"
           :key="i"
@@ -44,6 +38,7 @@
           >
           </v-badge>
         </v-list-item> -->
+
         <template v-for="item of items">
           <template v-if="item.jenis == 'ITEM'">
             <v-list-item :key="item.title" :to="item.to" router exact dense>
@@ -54,23 +49,12 @@
                 <v-list-item-title v-text="item.title" />
               </v-list-item-content>
 
-              <v-badge
-                v-if="item.badges > 0"
-                class="mr-5"
-                color="success"
-                overlap
-                :content="item.badges"
-              >
+              <v-badge v-if="item.badges > 0" class="mr-5" color="success" overlap :content="item.badges">
               </v-badge>
             </v-list-item>
           </template>
           <template v-if="item.jenis == 'GROUP'">
-            <v-list-group
-              :value="false"
-              :key="item.title"
-              no-action
-              color="white"
-            >
+            <v-list-group :value="false" :key="item.title" no-action color="white">
               <template v-slot:activator>
                 <v-list-item-action>
                   <v-icon>{{ item.icon }}</v-icon>
@@ -78,24 +62,12 @@
                 <v-list-item-content>
                   <v-list-item-title v-text="item.title" />
                 </v-list-item-content>
-                <v-badge
-                  v-if="item.badges > 0"
-                  color="success"
-                  overlap
-                  :content="item.badges"
-                >
+                <v-badge v-if="item.badges > 0" color="success" overlap :content="item.badges">
                 </v-badge>
               </template>
               <template v-for="item2 of itemsLvl2">
-                <v-list-item
-                  v-if="item2.kodeGroup == item.kodeMenu"
-                  :key="item2.title"
-                  :to="item2.to"
-                  @click="localstorage(item2.to)"
-                  router
-                  exact
-                  dense
-                >
+                <v-list-item v-if="item2.kodeGroup == item.kodeMenu" :key="item2.title" :to="item2.to"
+                  @click="localstorage(item2.to)" router exact dense>
                   <!-- <v-list-item-action>
                       <v-icon>{{ item2.icon }}</v-icon>
                     </v-list-item-action> -->
@@ -103,13 +75,7 @@
                     <v-list-item-title v-text="item2.title" />
                   </v-list-item-content>
 
-                  <v-badge
-                    v-if="item2.badges > 0"
-                    class="mr-5"
-                    color="success"
-                    overlap
-                    :content="item2.badges"
-                  >
+                  <v-badge v-if="item2.badges > 0" class="mr-5" color="success" overlap :content="item2.badges">
                   </v-badge>
                 </v-list-item>
               </template>
@@ -117,6 +83,57 @@
           </template>
         </template>
       </v-list>
+      <template>
+        <template>
+          <!-- <svg-icon type="mdi" :path="path"></svg-icon> -->
+        </template>
+        <NuxtLink to="/tes_folder">
+          <div class="d-flex" margin-left="">
+            <v-btn size="small" variant="text" font-size="1rem">upload file</v-btn>
+            <!-- <p style="font-size: 1rem; " class="ma-0 mt-1">Upload file</p> -->
+          </div>
+        </NuxtLink>
+
+        <NuxtLink to="/jenis-surat">
+          <div class="d-flex" margin-left="">
+            <v-btn size="small" variant="text" font-size="1rem">Jenis Surat</v-btn>
+            <!-- <p style="font-size: 1rem; " class="ma-0 mt-1">Upload file</p> -->
+          </div>
+        </NuxtLink>
+
+        <NuxtLink to="/tes_tree">
+          <div class="d-flex" margin-left="">
+            <v-btn size="small" variant="text" font-size="1rem">Folder</v-btn>
+            <!-- <p style="font-size: 1rem; " class="ma-0 mt-1">Upload file</p> -->
+          </div>
+        </NuxtLink>
+
+        <template>
+
+        </template>
+
+      </template>
+
+      <script>
+        export default {
+                                                              data: () => ({
+                                                                items: [
+                                                                  { text: 'My Files', icon: 'mdi-folder' },
+                                                                  { text: 'Shared with me', icon: 'mdi-account-multiple' },
+                                                                  { text: 'Starred', icon: 'mdi-star' },
+                                                                  { text: 'Recent', icon: 'mdi-history' },
+                                                                  { text: 'Offline', icon: 'mdi-check-circle' },
+                                                                  { text: 'Uploads', icon: 'mdi-upload' },
+                                                                  { text: 'Backups', icon: 'mdi-cloud-upload' },
+                                                                ],
+                                                              }),
+                                                            }
+      </script>
+      <template>
+        <v-icon>
+          {{ icon }}
+        </v-icon>
+      </template>
       <template v-slot:append>
         <p class="mb-0">
           <v-footer>
@@ -125,14 +142,8 @@
         </p>
       </template>
     </v-navigation-drawer>
-    <v-app-bar
-      :clipped-left="clipped"
-      dense
-      :collapse="!collapseOnScroll"
-      :collapse-on-scroll="collapseOnScroll"
-      app
-      class="green white--text"
-    >
+    <v-app-bar :clipped-left="clipped" dense :collapse="!collapseOnScroll" :collapse-on-scroll="collapseOnScroll" app
+      class="green white--text">
       <v-app-bar-nav-icon class="white--text" @click.stop="drawer = !drawer" />
       <v-toolbar-title v-text="title" />
       <v-spacer></v-spacer>
@@ -233,9 +244,7 @@
             <v-list-item-icon>
               <v-icon color="blue">mdi-account-convert-outline</v-icon>
             </v-list-item-icon>
-            <v-list-item-title style="font-weight: unset"
-              >Ganti Role</v-list-item-title
-            >
+            <v-list-item-title style="font-weight: unset">Ganti Role</v-list-item-title>
           </v-list-item>
           <!-- <v-list-item @click="getNotif">
             <v-list-item-title>tes</v-list-item-title>
@@ -244,9 +253,7 @@
             <v-list-item-icon>
               <v-icon color="blue">mdi-exit-to-app</v-icon>
             </v-list-item-icon>
-            <v-list-item-title style="font-weight: unset"
-              >Logout</v-list-item-title
-            >
+            <v-list-item-title style="font-weight: unset">Logout</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -272,11 +279,6 @@
         </template>
       </v-snackbar>
     </v-main>
-    <!-- <v-footer :absolute="!fixed" app>
-      <span style="font-size: 12px">
-        PTI - BPJS Ketenagakerjaan &copy; 2021
-      </span>
-    </v-footer> -->
   </v-app>
 </template>
 
@@ -564,7 +566,9 @@ export default {
     console.log("destroy");
     clearInterval(this.polling);
   },
+
 };
+
 </script>
 
 
@@ -578,4 +582,19 @@ export default {
 @import "~/node_modules/@syncfusion/ej2-splitbuttons/styles/material.css";
 @import "~/node_modules/@syncfusion/ej2-dropdowns/styles/material.css";
 @import "~/node_modules/@syncfusion/ej2-vue-documenteditor/styles/material.css";
+
+.custom-link {
+  color: #333;
+  /* Ganti dengan warna teks yang Anda inginkan */
+  text-decoration: none;
+  /* Menghapus garis bawah tautan */
+  /* Gaya lainnya jika diperlukan */
+}
+
+.custom-link:hover {
+  color: #555;
+  /* Ganti dengan warna saat hover yang Anda inginkan */
+  /* Gaya lainnya saat hover jika diperlukan */
+}
 </style>
+
