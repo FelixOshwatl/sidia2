@@ -9,45 +9,41 @@
     </v-row>
     <v-row>
       <p class="font-weight-black" style="font-size: 1.25rem; margin-left: 30px;">
-        Alih Media
+        Media Saya
       </p>
     </v-row>
     <sub-folders :folders="subItem" @getFolder="toggleFolder"></sub-folders>
-    <v-btn :disabled="dialog" :loading="dialog" class="white--text" color="purple darken-2" @click="dialog = true">
-      Start loading
-    </v-btn>
-    <v-dialog v-model="dialog" persistent max-width="500px" style="position: absolute; right: 100px; bottom: 20px;">
-      <v-card color="primary" dark>
-        <v-card-text>
-          Please stand by
-          <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
+    <div>
+      <!-- Tombol untuk membuka dialog -->
+      <!-- Dialog Vuetify -->
+      <!-- <v-dialog v-model="dialog" hide-overlay> -->
+      <!-- <v-card class=" fixed ml-16 mr-16  mt-10" v-model="dialog" hide-overlay>
+        <div class="bg-grey d-flex" style="background-color: grey;">
+          <v-row class="d-flex justify-space-between align-center mb-5 mt-5 mr-3">
+            <v-row class="d-flex justify-start ml-5" style="color: white;">mengunggah 3 item</v-row>
+            <v-button><v-icon class="mr-2" style="color: white;">mdi-chevron-down</v-icon></v-button>
+            <v-button><v-icon style="color: white;">mdi-close</v-icon></v-button>
+          </v-row>
+        </div>
+        <v-row class="d-flex justify-space-between mb-6 mt-4 mr-3">
+          <v-row class="d-flex justify-start ml-3 mt-1 ml-4">
+            <v-icon>mdi-image</v-icon>surat laporan.png
+          </v-row>
+          <v-progress-circular indeterminate></v-progress-circular>
+        </v-row>
+        <v-divider></v-divider>
+        <v-row class="d-flex justify-space-between mb-6 mt-4 mr-3">
+          <v-row class="d-flex justify-start ml-3 mt-1 ml-4">
+            <v-icon>mdi-image</v-icon>surat masuk.png
+          </v-row>
+          <v-progress-circular indeterminate></v-progress-circular>
+        </v-row>
+        <v-divider></v-divider>
+      </v-card> -->
+      <loadingUpload></loadingUpload>
+      <!-- </v-dialog> -->
+    </div>
   </div>
-
-  <!-- <v-col style="margin: 20px;">
-
-    <v-row class="d-flex justify-space-between folder" style="margin: 10px;" v-for="folder in folders"
-      @click="toggleFolder(folder)">
-      <v-col class="d-flex align-center">
-        <v-icon>mdi-folder</v-icon>
-        <p class="ma-0">{{ folder.name }}</p>
-      </v-col>
-      <v-col align="center">{{ folder.dateModified }}</v-col>
-      <v-col align="right">{{ folder.size }}</v-col>
-    </v-row>
-    <v-divider></v-divider>
-    <v-row class="d-flex justify-space-between folder" style="margin: 10px;" v-for="folder in folders"
-      v-if="folder.showSubfolders" @click="navigateToFolder(folder.id)">
-      <v-col class="d-flex align-center">
-        <v-icon>mdi-folder</v-icon>
-        <p class="ma-0">{{ subfolder.name }}</p>
-      </v-col>
-      <v-col align="center">{{ subfolder.dateModified }}</v-col>
-      <v-col align="right">{{ subfolder.size }}</v-col>
-    </v-row>
-  </v-col> -->
 </template>
 
 <script>
@@ -56,16 +52,7 @@ export default {
     dialog: false,
 
     items: [
-      // {
-      //   text: 'Link 1',
-      //   disabled: false,
-      //   href: 'breadcrumbs_link_1',
-      // },
-      // {
-      //   text: 'Link 2',
-      //   disabled: true,
-      //   href: 'breadcrumbs_link_2',
-      // },
+
     ],
     folders: [
       {
@@ -189,11 +176,14 @@ export default {
           },
         ],
       },
+
     ],
+
     subItem: [
 
     ],
   }),
+
   created() {
     this.subItem = this.folders
   },
@@ -207,13 +197,6 @@ export default {
   methods: {
     toggleFolder(folder) {
       this.subItem = folder
-      this.items.push(
-        {
-          text: folder.name,
-          disabled: false,
-          href: 'folder',
-        },
-      )
       console.log(this.subItem)
       // Perbaikan pengaturan showSubfolders
       //folder.showSubfolders = !folder.showSubfolders;
